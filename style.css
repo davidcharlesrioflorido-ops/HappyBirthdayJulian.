@@ -1,0 +1,2407 @@
+/* =========================================================
+   SPIDER-MAN BIRTHDAY WEBSITE
+   FINAL RESPONSIVE VERSION
+========================================================= */
+
+:root {
+    --red: #e10600;
+    --red-bright: #ff3030;
+    --red-dark: #850000;
+    --black: #050507;
+    --black-soft: #0d0d12;
+    --white: #ffffff;
+    --silver: #d8dbe0;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--white);
+
+    background:
+        #050507
+        url("assets/bg.jpg")
+        center center / cover
+        fixed
+        no-repeat;
+
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.48),
+            rgba(0, 0, 0, 0.68)
+        );
+
+    z-index: -1;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================
+   GENERAL SCREENS
+========================================================= */
+
+.password-screen,
+.door-screen,
+.birthday-screen,
+.main-content {
+    width: 100%;
+    min-height: 100vh;
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* =========================================================
+   WEB EFFECT
+========================================================= */
+
+.password-screen::before,
+.door-screen::before,
+.birthday-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            30deg,
+            transparent 48%,
+            rgba(255,255,255,.08) 49%,
+            transparent 50%
+        ),
+        linear-gradient(
+            -30deg,
+            transparent 48%,
+            rgba(255,255,255,.08) 49%,
+            transparent 50%
+        );
+
+    background-size: 90px 90px;
+    opacity: .25;
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+.password-screen {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.38),
+            rgba(0,0,0,.62)
+        ),
+        url("assets/bg.jpg")
+        center center / cover
+        no-repeat;
+}
+
+.password-container {
+    width: min(500px, 92%);
+    padding: 45px 35px;
+
+    position: relative;
+    z-index: 5;
+
+    background: rgba(5,5,7,.90);
+
+    border: 2px solid var(--red);
+    border-radius: 22px;
+
+    box-shadow:
+        0 0 15px rgba(255,0,0,.45),
+        0 0 50px rgba(255,0,0,.20);
+}
+
+.password-container h1 {
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-weight: 900;
+
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+    text-shadow:
+        3px 3px 0 var(--red),
+        0 0 15px rgba(255,0,0,.8);
+
+    margin-bottom: 15px;
+}
+
+.password-container p {
+    color: var(--silver);
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+#passwordInput {
+    width: 100%;
+    padding: 15px 18px;
+
+    border-radius: 12px;
+    border: 2px solid #555;
+
+    background: #111116;
+    color: white;
+
+    outline: none;
+    text-align: center;
+    font-size: 1.1rem;
+
+    transition: .3s;
+}
+
+#passwordInput:focus {
+    border-color: var(--red);
+
+    box-shadow:
+        0 0 15px
+        rgba(255,0,0,.45);
+}
+
+#unlockBtn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px;
+
+    border: none;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--red-bright),
+            var(--red-dark)
+        );
+
+    color: white;
+
+    font-size: 1rem;
+    font-weight: 900;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 20px
+        rgba(255,0,0,.35);
+
+    transition: .25s;
+}
+
+#unlockBtn:hover {
+    transform:
+        translateY(-3px)
+        scale(1.02);
+
+    box-shadow:
+        0 10px 30px
+        rgba(255,0,0,.55);
+}
+
+#passwordMessage {
+    min-height: 25px;
+    margin-top: 15px;
+
+    color: var(--red-bright);
+    font-weight: bold;
+}
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+#particles {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    overflow: hidden;
+
+    z-index: 2;
+}
+
+.particle {
+    position: absolute;
+    top: -10px;
+
+    width: 4px;
+    height: 4px;
+
+    background: white;
+    border-radius: 50%;
+
+    opacity: .65;
+
+    animation:
+        fall linear infinite;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-20px);
+    }
+
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+/* =========================================================
+   DOOR
+========================================================= */
+
+.door-screen {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.40),
+            rgba(0,0,0,.70)
+        ),
+        url("assets/bg.jpg")
+        center center / cover
+        no-repeat;
+}
+
+.doors {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+
+    z-index: 10;
+    pointer-events: none;
+}
+
+.door {
+    width: 50%;
+    height: 100%;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #08080b,
+            #1a1a20
+        );
+
+    border: 2px solid var(--red);
+
+    transition:
+        transform 2s cubic-bezier(
+            .77,
+            0,
+            .18,
+            1
+        );
+}
+
+.door::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            45deg,
+            transparent 47%,
+            rgba(255,0,0,.25) 48%,
+            transparent 49%
+        ),
+        linear-gradient(
+            -45deg,
+            transparent 47%,
+            rgba(255,0,0,.25) 48%,
+            transparent 49%
+        );
+
+    background-size: 70px 70px;
+    opacity: .7;
+}
+
+.door-left {
+    transform-origin: left center;
+}
+
+.door-right {
+    transform-origin: right center;
+}
+
+.doors.open .door-left {
+    transform: translateX(-100%);
+}
+
+.doors.open .door-right {
+    transform: translateX(100%);
+}
+
+.door-content {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: min(600px, 90%);
+
+    z-index: 20;
+    text-align: center;
+
+    transition: opacity .6s ease;
+}
+
+.door-content h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+
+    color: white;
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        3px 3px 0 var(--red),
+        0 0 25px rgba(255,0,0,.7);
+
+    margin-bottom: 15px;
+}
+
+.door-content p {
+    color: var(--silver);
+
+    font-size:
+        clamp(
+            .9rem,
+            3vw,
+            1.2rem
+        );
+}
+
+#openDoorBtn {
+    position: absolute;
+
+    left: 50%;
+    bottom: 12%;
+
+    transform: translateX(-50%);
+
+    z-index: 30;
+
+    padding: 16px 35px;
+
+    border: 2px solid white;
+    border-radius: 50px;
+
+    background: var(--red);
+    color: white;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 25px
+        rgba(255,0,0,.7);
+
+    transition: .3s;
+}
+
+#openDoorBtn:hover {
+    transform:
+        translateX(-50%)
+        scale(1.08);
+
+    background: var(--red-bright);
+}
+
+/* =========================================================
+   BIRTHDAY SCREEN
+========================================================= */
+
+.birthday-screen {
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    padding: 40px 25px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.30),
+            rgba(0,0,0,.62)
+        ),
+        url("assets/bg.jpg")
+        center center / cover
+        no-repeat;
+}
+
+.birthday-content {
+    position: relative;
+    z-index: 10;
+
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.birthday-content h1,
+.birthday-screen h1 {
+    width: 100%;
+
+    margin: 0 auto 15px;
+
+    text-align: center;
+
+    font-size:
+        clamp(
+            3rem,
+            9vw,
+            7rem
+        );
+
+    line-height: .95;
+
+    font-weight: 1000;
+
+    color: white;
+
+    text-transform: uppercase;
+
+    letter-spacing:
+        clamp(
+            2px,
+            1vw,
+            8px
+        );
+
+    text-shadow:
+        4px 4px 0 var(--red),
+        0 0 15px rgba(255,0,0,.8),
+        0 0 40px rgba(255,0,0,.35);
+}
+
+.birthday-content p {
+    text-align: center;
+
+    font-size:
+        clamp(
+            1rem,
+            3vw,
+            1.5rem
+        );
+
+    color: var(--silver);
+
+    margin-bottom: 30px;
+}
+
+/* =========================================================
+   SIDE PHOTOS
+========================================================= */
+
+.birthday-photo {
+    position: absolute;
+
+    top: 25px;
+
+    width:
+        clamp(
+            145px,
+            20vw,
+            250px
+        );
+
+    height:
+        clamp(
+            170px,
+            24vw,
+            290px
+        );
+
+    object-fit: contain;
+    object-position: center;
+
+    border: none;
+    border-radius: 0;
+
+    background: transparent;
+
+    box-shadow: none;
+
+    z-index: 15;
+
+    transition:
+        transform .3s ease;
+}
+
+.birthday-photo.left {
+    left:
+        clamp(
+            8px,
+            3vw,
+            45px
+        );
+
+    transform: rotate(-5deg);
+}
+
+.birthday-photo.right {
+    right:
+        clamp(
+            8px,
+            3vw,
+            45px
+        );
+
+    transform: rotate(5deg);
+}
+
+.birthday-photo.left:hover {
+    transform:
+        rotate(0deg)
+        scale(1.05);
+}
+
+.birthday-photo.right:hover {
+    transform:
+        rotate(0deg)
+        scale(1.05);
+}
+
+/* =========================================================
+   CENTER JASMINE PHOTO
+   SPIDER-MAN FRAME
+========================================================= */
+
+.jasmine-frame {
+    position: relative;
+
+    width: min(500px, 72vw);
+
+    min-height: 220px;
+
+    margin: 15px auto 30px;
+
+    padding: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #050507,
+            #180000 45%,
+            #08080b
+        );
+
+    border: 4px solid var(--red);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,.12),
+        0 0 18px rgba(255,0,0,.65),
+        0 0 45px rgba(255,0,0,.30),
+        0 18px 40px rgba(0,0,0,.65);
+
+    overflow: hidden;
+
+    isolation: isolate;
+}
+
+.jasmine-frame::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            45deg,
+            transparent 47%,
+            rgba(255,0,0,.28) 48%,
+            transparent 49%
+        ),
+        linear-gradient(
+            -45deg,
+            transparent 47%,
+            rgba(255,0,0,.28) 48%,
+            transparent 49%
+        );
+
+    background-size: 55px 55px;
+
+    opacity: .65;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+/* =========================================================
+   CENTER PHOTO WRAPPER
+========================================================= */
+
+.jasmine-photo-wrap {
+    position: relative;
+
+    width: 100%;
+    min-height: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px;
+
+    background:
+        rgba(0,0,0,.35);
+
+    border:
+        2px solid
+        rgba(255,255,255,.15);
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.jasmine-main-photo {
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    max-width: 100%;
+    max-height: 55vh;
+
+    object-fit: contain;
+    object-position: center;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.55);
+}
+
+/* =========================================================
+   FRAME CORNERS
+========================================================= */
+
+.frame-corner {
+    position: absolute;
+
+    width: 35px;
+    height: 35px;
+
+    z-index: 5;
+
+    pointer-events: none;
+}
+
+.frame-corner.top-left {
+    top: 8px;
+    left: 8px;
+
+    border-top: 4px solid var(--red-bright);
+    border-left: 4px solid var(--red-bright);
+
+    border-top-left-radius: 8px;
+
+    box-shadow:
+        -2px -2px 8px rgba(255,0,0,.5);
+}
+
+.frame-corner.top-right {
+    top: 8px;
+    right: 8px;
+
+    border-top: 4px solid var(--red-bright);
+    border-right: 4px solid var(--red-bright);
+
+    border-top-right-radius: 8px;
+
+    box-shadow:
+        2px -2px 8px rgba(255,0,0,.5);
+}
+
+.frame-corner.bottom-left {
+    bottom: 8px;
+    left: 8px;
+
+    border-bottom: 4px solid var(--red-bright);
+    border-left: 4px solid var(--red-bright);
+
+    border-bottom-left-radius: 8px;
+
+    box-shadow:
+        -2px 2px 8px rgba(255,0,0,.5);
+}
+
+.frame-corner.bottom-right {
+    bottom: 8px;
+    right: 8px;
+
+    border-bottom: 4px solid var(--red-bright);
+    border-right: 4px solid var(--red-bright);
+
+    border-bottom-right-radius: 8px;
+
+    box-shadow:
+        2px 2px 8px rgba(255,0,0,.5);
+}
+
+/* =========================================================
+   UNUSED BIRTHDAY ELEMENTS
+========================================================= */
+
+.birthday-rapunzel,
+.birthday-swing,
+.birthday-right,
+.rapunzel-swing,
+.rapunzel-group,
+.lantern {
+    display: none !important;
+}
+
+/* =========================================================
+   ENTER MEMORIES BUTTON
+========================================================= */
+
+#enterMemoriesBtn {
+    position: relative;
+    z-index: 20;
+
+    padding: 15px 35px;
+
+    border: 2px solid white;
+    border-radius: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--red-bright),
+            var(--red-dark)
+        );
+
+    color: white;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    box-shadow:
+        0 0 25px
+        rgba(255,0,0,.5);
+
+    transition: .3s;
+}
+
+#enterMemoriesBtn:hover {
+    transform:
+        translateY(-3px)
+        scale(1.05);
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main-content {
+    min-height: 100vh;
+
+    position: relative;
+
+    padding:
+        80px 25px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.40),
+            rgba(0,0,0,.75)
+        ),
+        url("assets/bg.jpg")
+        center center / cover
+        fixed
+        no-repeat;
+}
+
+.main-bg-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        rgba(0,0,0,.25);
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    position: relative;
+    z-index: 2;
+
+    max-width: 1000px;
+
+    margin:
+        0 auto 60px;
+
+    text-align: center;
+}
+
+.hero h1 {
+    font-size:
+        clamp(
+            2.8rem,
+            8vw,
+            6rem
+        );
+
+    color: white;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        4px 4px 0 var(--red),
+        0 0 30px rgba(255,0,0,.6);
+}
+
+.hero p {
+    color: var(--silver);
+
+    font-size:
+        clamp(
+            1rem,
+            3vw,
+            1.3rem
+        );
+}
+
+/* =========================================================
+   MEMORY GRID
+========================================================= */
+
+.memory-grid {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                240px,
+                1fr
+            )
+        );
+
+    gap: 25px;
+}
+
+.memory-card {
+    background:
+        rgba(5,5,8,.88);
+
+    border:
+        2px solid
+        var(--red);
+
+    border-radius:
+        18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.6);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.memory-card:hover {
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        0 15px 40px
+        rgba(255,0,0,.3);
+}
+
+.memory-card img {
+    display: block;
+
+    width: 100%;
+    height: 280px;
+
+    object-fit: cover;
+
+    cursor: pointer;
+
+    transition:
+        transform .4s ease;
+}
+
+.memory-card img:hover {
+    transform:
+        scale(1.04);
+}
+
+/* =========================================================
+   LETTER SECTION
+========================================================= */
+
+.letter-section {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 100px auto 0;
+
+    text-align: center;
+}
+
+.section-title {
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    color: white;
+
+    font-size:
+        clamp(
+            2rem,
+            5vw,
+            3.5rem
+        );
+
+    text-transform: uppercase;
+
+    text-shadow:
+        3px 3px 0 var(--red),
+        0 0 20px rgba(255,0,0,.5);
+
+    margin: 8px 0;
+}
+
+.section-title p {
+    color: var(--red-bright);
+    font-size: 1.4rem;
+}
+
+.letter-display {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.wooden-letter-frame {
+    width: min(850px, 96%);
+
+    padding: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #09090c,
+            #15151a
+        );
+
+    border:
+        5px solid
+        var(--red);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 25px rgba(255,0,0,.25),
+        0 20px 50px rgba(0,0,0,.6);
+}
+
+.wood-frame-inner {
+    position: relative;
+
+    min-height: 450px;
+
+    padding: 55px 25px 35px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    border-radius: 10px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,0,0,.08),
+            transparent 65%
+        );
+}
+
+.frame-title {
+    text-align: center;
+
+    color: white;
+
+    font-size: 1.5rem;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 25px;
+
+    text-shadow:
+        0 0 12px var(--red);
+}
+
+.frame-decoration {
+    position: absolute;
+
+    color: var(--red-bright);
+
+    font-size: 25px;
+
+    text-shadow:
+        0 0 10px rgba(255,0,0,.8);
+}
+
+.frame-decoration.top-left {
+    top: 15px;
+    left: 18px;
+}
+
+.frame-decoration.top-right {
+    top: 15px;
+    right: 18px;
+}
+
+.frame-decoration.bottom-left {
+    bottom: 15px;
+    left: 18px;
+}
+
+.frame-decoration.bottom-right {
+    bottom: 15px;
+    right: 18px;
+}
+
+/* =========================================================
+   ENVELOPE WRAPPER
+========================================================= */
+
+.envelope-wrapper {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding-top: 25px;
+
+    overflow: visible;
+}
+
+/* =========================================================
+   RESPONSIVE ENVELOPE
+   WORKS ON DESKTOP / TABLET / PHONE
+========================================================= */
+
+.envelope {
+    position: relative;
+
+    /*
+       Responsive width.
+       It grows on larger screens and shrinks
+       automatically on smaller screens.
+    */
+    width: clamp(
+        260px,
+        70vw,
+        500px
+    );
+
+    /*
+       Keeps the envelope proportional.
+       Approx ratio: 1.56
+    */
+    aspect-ratio: 1.56 / 1;
+
+    height: auto;
+
+    margin:
+        clamp(25px, 5vw, 40px)
+        auto
+        clamp(20px, 4vw, 30px);
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    perspective: 1200px;
+
+    isolation: isolate;
+
+    transition:
+        transform .3s ease;
+
+    overflow: visible;
+}
+
+.envelope:hover {
+    transform:
+        translateY(-8px);
+}
+
+/* =========================================================
+   ENVELOPE BACK
+========================================================= */
+
+.envelope-back {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            #470000,
+            #9b0000 45%,
+            #d10a0a
+        );
+
+    border:
+        clamp(2px, .4vw, 3px)
+        solid
+        #ff3b3b;
+
+    border-radius:
+        clamp(10px, 2vw, 15px);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.65),
+        0 0 30px rgba(255,0,0,.35);
+
+    z-index: 1;
+}
+
+.envelope-back::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            45deg,
+            transparent 48%,
+            rgba(255,255,255,.12) 49%,
+            transparent 50%
+        ),
+        linear-gradient(
+            -45deg,
+            transparent 48%,
+            rgba(255,255,255,.12) 49%,
+            transparent 50%
+        );
+
+    background-size:
+        clamp(45px, 7vw, 70px)
+        clamp(45px, 7vw, 70px);
+
+    opacity: .5;
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   LETTER PAPER
+   FULLY RESPONSIVE
+========================================================= */
+
+.letter-paper {
+    position: absolute;
+
+    left: 5%;
+    bottom: 7%;
+
+    width: 90%;
+
+    /*
+       Responsive height based on viewport.
+       It never becomes absurdly tall or tiny.
+    */
+    height:
+        clamp(
+            165px,
+            24vw,
+            270px
+        );
+
+    padding:
+        clamp(15px, 3vw, 30px)
+        clamp(14px, 3vw, 28px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #f3f3f3
+        );
+
+    color: #111;
+
+    border-radius:
+        clamp(5px, 1vw, 8px);
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    text-align: left;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.45);
+
+    transform:
+        translateY(
+            clamp(
+                20px,
+                4vw,
+                35px
+            )
+        );
+
+    transition:
+        transform .8s
+        cubic-bezier(
+            .68,
+            -.55,
+            .27,
+            1.55
+        );
+
+    z-index: 2;
+
+    scrollbar-width: thin;
+
+    /*
+       Prevents very long words/text
+       from breaking the envelope.
+    */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.letter-paper h3 {
+    color:
+        #8d0000;
+
+    text-align: center;
+
+    margin-bottom:
+        clamp(8px, 2vw, 15px);
+
+    font-size:
+        clamp(
+            .95rem,
+            3vw,
+            1.4rem
+        );
+}
+
+.letter-paper p {
+    color: #222;
+
+    line-height:
+        clamp(
+            1.45,
+            2vw,
+            1.7
+        );
+
+    margin-bottom:
+        clamp(
+            10px,
+            2vw,
+            18px
+        );
+
+    font-size:
+        clamp(
+            .70rem,
+            1.8vw,
+            .95rem
+        );
+}
+
+.letter-paper .bible-verse {
+    text-align: center;
+
+    padding:
+        clamp(
+            8px,
+            2vw,
+            15px
+        );
+
+    border-top:
+        1px solid
+        #ccc;
+
+    border-bottom:
+        1px solid
+        #ccc;
+
+    color: #555;
+}
+
+.letter-paper .letter-signature {
+    text-align: right;
+
+    font-weight: bold;
+
+    color: #8d0000;
+}
+
+/* =========================================================
+   ENVELOPE FRONT
+========================================================= */
+
+.envelope-front {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 67%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #8c0000,
+            #e10600
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            50% 58%,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+
+    border-radius:
+        0 0
+        clamp(8px, 2vw, 13px)
+        clamp(8px, 2vw, 13px);
+
+    z-index: 4;
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   ENVELOPE FLAP
+========================================================= */
+
+.envelope-flap {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 68%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ff2626,
+            #a00000
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            50% 100%
+        );
+
+    transform-origin:
+        top center;
+
+    transition:
+        transform .8s
+        cubic-bezier(
+            .77,
+            0,
+            .18,
+            1
+        );
+
+    z-index: 5;
+
+    filter:
+        drop-shadow(
+            0 5px 5px
+            rgba(0,0,0,.35)
+        );
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   WAX SEAL
+========================================================= */
+
+.wax-seal {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    /*
+       Responsive seal
+    */
+    width:
+        clamp(
+            45px,
+            9vw,
+            65px
+        );
+
+    height:
+        clamp(
+            45px,
+            9vw,
+            65px
+        );
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ff5757,
+            #c50000 55%,
+            #720000
+        );
+
+    border:
+        clamp(2px, .5vw, 4px)
+        solid
+        #640000;
+
+    box-shadow:
+        0 5px 12px
+        rgba(0,0,0,.5),
+        0 0 15px
+        rgba(255,0,0,.5);
+
+    z-index: 7;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    font-size:
+        clamp(
+            18px,
+            4vw,
+            27px
+        );
+
+    text-shadow:
+        0 2px 4px
+        rgba(0,0,0,.5);
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+}
+
+/* =========================================================
+   OPEN ENVELOPE
+========================================================= */
+
+.envelope.open {
+    z-index: 20;
+}
+
+.envelope.open .envelope-flap {
+    transform:
+        rotateX(180deg);
+
+    z-index: 1;
+}
+
+.envelope.open .letter-paper {
+    /*
+       Responsive opening distance.
+       The paper moves upward according
+       to envelope size.
+    */
+    transform:
+        translateY(
+            clamp(
+                -95px,
+                -18vw,
+                -135px
+            )
+        );
+
+    z-index: 6;
+}
+
+.envelope.open .wax-seal {
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.6);
+}
+
+/* =========================================================
+   ENVELOPE HINT
+========================================================= */
+
+.envelope-hint {
+    color: var(--silver);
+
+    font-size:
+        clamp(
+            .75rem,
+            2vw,
+            1rem
+        );
+
+    margin-top: 10px;
+
+    text-align: center;
+
+    opacity: .9;
+
+    padding: 0 10px;
+}
+
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+
+#lightbox {
+    position: fixed;
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        rgba(0,0,0,.92);
+}
+
+#lightboxImage {
+    max-width: 90vw;
+    max-height: 85vh;
+
+    object-fit: contain;
+
+    border:
+        3px solid white;
+
+    box-shadow:
+        0 0 35px
+        rgba(255,0,0,.6);
+}
+
+#closeLightbox {
+    position: absolute;
+
+    top: 20px;
+    right: 25px;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    border-radius: 50%;
+
+    background:
+        var(--red);
+
+    color: white;
+
+    font-size: 30px;
+
+    cursor: pointer;
+
+    z-index: 10000;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    margin-top: 80px;
+    padding: 40px 20px;
+
+    border-top:
+        1px solid
+        rgba(255,0,0,.3);
+
+    color: var(--silver);
+
+    background:
+        rgba(0,0,0,.5);
+}
+
+.footer-stars {
+    color: var(--red-bright);
+
+    font-size: 1.4rem;
+
+    margin-bottom: 12px;
+}
+
+footer p {
+    color: white;
+
+    font-size: 1rem;
+
+    margin-bottom: 8px;
+}
+
+footer small {
+    color: var(--silver);
+}
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .birthday-screen {
+        padding:
+            190px 20px 55px;
+    }
+
+    .birthday-photo {
+        width: 140px;
+        height: 165px;
+    }
+
+    .jasmine-frame {
+        width: min(500px, 86vw);
+    }
+
+    .wooden-letter-frame {
+        width: 96%;
+    }
+
+    .wood-frame-inner {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .password-container {
+        padding:
+            35px 22px;
+    }
+
+    .birthday-screen {
+        padding:
+            180px 20px 50px;
+    }
+
+    /* =====================================================
+       MOBILE SIDE PHOTOS
+    ===================================================== */
+
+    .birthday-photo {
+        top: 18px;
+
+        width: 125px;
+        height: 145px;
+
+        object-fit: contain;
+
+        border: none;
+        border-radius: 0;
+
+        background: transparent;
+
+        box-shadow: none;
+    }
+
+    .birthday-photo.left {
+        left: 3px;
+    }
+
+    .birthday-photo.right {
+        right: 3px;
+    }
+
+    /* =====================================================
+       MOBILE CENTER FRAME
+    ===================================================== */
+
+    .jasmine-frame {
+        width:
+            min(
+                440px,
+                88vw
+            );
+
+        min-height: 180px;
+
+        padding: 9px;
+
+        margin:
+            12px auto 28px;
+
+        border-width: 3px;
+
+        border-radius: 16px;
+    }
+
+    .jasmine-photo-wrap {
+        min-height: 160px;
+
+        padding: 6px;
+
+        border-radius: 9px;
+    }
+
+    .jasmine-main-photo {
+        max-width: 100%;
+        max-height: 48vh;
+
+        width: auto;
+        height: auto;
+
+        object-fit: contain;
+    }
+
+    .frame-corner {
+        width: 25px;
+        height: 25px;
+    }
+
+    .frame-corner.top-left,
+    .frame-corner.top-right,
+    .frame-corner.bottom-left,
+    .frame-corner.bottom-right {
+        border-width: 3px;
+    }
+
+    .birthday-content h1,
+    .birthday-screen h1 {
+        font-size:
+            clamp(
+                2.4rem,
+                12vw,
+                4.5rem
+            );
+
+        letter-spacing: 2px;
+    }
+
+    #openDoorBtn {
+        bottom: 8%;
+
+        padding:
+            13px 25px;
+    }
+
+    .memory-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-card img {
+        height: 240px;
+    }
+
+    /* =====================================================
+       ENVELOPE MOBILE
+       NO FIXED WIDTH/HEIGHT
+    ===================================================== */
+
+    .wooden-letter-frame {
+        width: 100%;
+    }
+
+    .wood-frame-inner {
+        padding:
+            45px 10px 25px;
+
+        min-height: 400px;
+    }
+
+    /*
+       Envelope now scales automatically.
+    */
+    .envelope {
+        width:
+            min(
+                92vw,
+                430px
+            );
+
+        height: auto;
+
+        aspect-ratio: 1.56 / 1;
+
+        margin:
+            30px auto 20px;
+    }
+
+    /*
+       Paper automatically scales with
+       the envelope.
+    */
+    .letter-paper {
+        height:
+            clamp(
+                155px,
+                45vw,
+                220px
+            );
+
+        padding:
+            clamp(
+                15px,
+                5vw,
+                22px
+            )
+            clamp(
+                12px,
+                4vw,
+                18px
+            );
+    }
+
+    .letter-paper h3 {
+        font-size:
+            clamp(
+                .9rem,
+                4vw,
+                1.15rem
+            );
+    }
+
+    .letter-paper p {
+        font-size:
+            clamp(
+                .68rem,
+                3vw,
+                .85rem
+            );
+
+        line-height:
+            clamp(
+                1.4,
+                2vw,
+                1.55
+            );
+    }
+
+    .envelope.open .letter-paper {
+        transform:
+            translateY(
+                clamp(
+                    -75px,
+                    -22vw,
+                    -105px
+                )
+            );
+    }
+
+    .wax-seal {
+        width:
+            clamp(
+                45px,
+                14vw,
+                55px
+            );
+
+        height:
+            clamp(
+                45px,
+                14vw,
+                55px
+            );
+
+        font-size:
+            clamp(
+                18px,
+                6vw,
+                22px
+            );
+    }
+
+    .envelope-hint {
+        font-size:
+            clamp(
+                .72rem,
+                3vw,
+                .85rem
+            );
+    }
+}
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .birthday-screen {
+        padding-top: 165px;
+    }
+
+    .birthday-photo {
+        width: 112px;
+        height: 132px;
+    }
+
+    .birthday-photo.left {
+        left: 0;
+    }
+
+    .birthday-photo.right {
+        right: 0;
+    }
+
+    .jasmine-frame {
+        width: 94vw;
+
+        min-height: 155px;
+
+        padding: 7px;
+
+        border-width: 3px;
+    }
+
+    .jasmine-photo-wrap {
+        min-height: 140px;
+
+        padding: 5px;
+    }
+
+    .jasmine-main-photo {
+        max-width: 100%;
+        max-height: 43vh;
+
+        width: auto;
+        height: auto;
+
+        object-fit: contain;
+    }
+
+    .frame-corner {
+        width: 21px;
+        height: 21px;
+    }
+
+    .birthday-content h1,
+    .birthday-screen h1 {
+        font-size:
+            clamp(
+                2.2rem,
+                12vw,
+                3.5rem
+            );
+    }
+
+    /* =====================================================
+       ENVELOPE SMALL PHONE
+    ===================================================== */
+
+    .wood-frame-inner {
+        padding:
+            42px 7px 22px;
+    }
+
+    .envelope {
+        width: 92vw;
+
+        max-width: 380px;
+
+        aspect-ratio: 1.56 / 1;
+    }
+
+    .letter-paper {
+        height:
+            clamp(
+                140px,
+                43vw,
+                185px
+            );
+
+        padding:
+            13px 11px;
+    }
+
+    .letter-paper h3 {
+        font-size:
+            clamp(
+                .82rem,
+                4vw,
+                1rem
+            );
+
+        margin-bottom: 8px;
+    }
+
+    .letter-paper p {
+        font-size:
+            clamp(
+                .62rem,
+                2.8vw,
+                .75rem
+            );
+
+        line-height: 1.4;
+
+        margin-bottom: 9px;
+    }
+
+    .letter-paper .bible-verse {
+        padding: 8px 5px;
+    }
+
+    .envelope.open .letter-paper {
+        transform:
+            translateY(
+                clamp(
+                    -60px,
+                    -20vw,
+                    -85px
+                )
+            );
+    }
+
+    .wax-seal {
+        width: 45px;
+        height: 45px;
+
+        font-size: 18px;
+    }
+
+    .envelope-hint {
+        font-size: .75rem;
+    }
+}
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .birthday-screen {
+        padding-top: 150px;
+    }
+
+    .birthday-photo {
+        width: 98px;
+        height: 118px;
+    }
+
+    .jasmine-frame {
+        width: 95vw;
+
+        min-height: 145px;
+
+        padding: 6px;
+    }
+
+    .jasmine-photo-wrap {
+        min-height: 130px;
+
+        padding: 4px;
+    }
+
+    .jasmine-main-photo {
+        max-width: 100%;
+        max-height: 40vh;
+    }
+
+    .frame-corner {
+        width: 18px;
+        height: 18px;
+    }
+
+    .birthday-content h1,
+    .birthday-screen h1 {
+        font-size: 2.1rem;
+    }
+
+    /* =====================================================
+       VERY SMALL ENVELOPE
+    ===================================================== */
+
+    .wood-frame-inner {
+        padding:
+            40px 5px 20px;
+    }
+
+    .envelope {
+        width: 94vw;
+
+        max-width: 340px;
+
+        aspect-ratio: 1.56 / 1;
+    }
+
+    .letter-paper {
+        height:
+            clamp(
+                125px,
+                41vw,
+                165px
+            );
+
+        padding:
+            10px 8px;
+    }
+
+    .letter-paper h3 {
+        font-size: .75rem;
+
+        margin-bottom: 6px;
+    }
+
+    .letter-paper p {
+        font-size: .58rem;
+
+        line-height: 1.32;
+
+        margin-bottom: 7px;
+    }
+
+    .letter-paper .bible-verse {
+        padding: 6px 3px;
+    }
+
+    .envelope.open .letter-paper {
+        transform:
+            translateY(
+                -55px
+            );
+    }
+
+    .wax-seal {
+        width: 40px;
+        height: 40px;
+
+        font-size: 16px;
+    }
+
+    .envelope-hint {
+        font-size: .68rem;
+    }
+}
+
+/* =========================================================
+   LANDSCAPE PHONES
+========================================================= */
+
+@media (max-height: 550px) and (max-width: 900px) {
+
+    .birthday-screen {
+        padding-top: 130px;
+        padding-bottom: 30px;
+    }
+
+    .birthday-photo {
+        top: 10px;
+
+        width: 100px;
+        height: 115px;
+    }
+
+    .jasmine-frame {
+        min-height: 140px;
+
+        margin-top: 8px;
+        margin-bottom: 18px;
+    }
+
+    .jasmine-photo-wrap {
+        min-height: 120px;
+    }
+
+    .jasmine-main-photo {
+        max-height: 50vh;
+    }
+
+    .envelope {
+        width:
+            min(
+                70vw,
+                420px
+            );
+    }
+
+    .letter-paper {
+        height:
+            clamp(
+                130px,
+                35vh,
+                200px
+            );
+    }
+}
+
+/* =========================================================
+   PREVENT MOBILE HORIZONTAL SCROLL
+========================================================= */
+
+@media (max-width: 700px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .letter-section,
+    .letter-display,
+    .envelope-wrapper,
+    .wooden-letter-frame,
+    .wood-frame-inner {
+        max-width: 100%;
+    }
+}
